@@ -1,0 +1,126 @@
+        @keyframes fade-in-up {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+.pilot-closeBtn{
+    display : inline-block;
+    padding: 2px;
+    visibility: hidden;
+}
+.in_article{
+    height: 0px;
+    overflow: hidden;
+}
+.in_article_fixed{
+    height: 0px;
+    overflow: hidden;
+}
+
+
+.pilot-video:hover .pilot-closeBtn{
+  visibility: visible;
+}
+
+.pilot-video:hover .ima-mute-div {
+   visibility: visible;
+}
+
+.pilot-video:hover .ima-play-pause-div{
+   visibility: visible;
+}
+       .in_article.stuck {
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            transform: translateY(100%);
+            animation: fade-in-up 0.25s ease forwards;
+             z-index: 3;
+        }
+        
+/* .ima-countdown-div, */
+
+.ima-play-pause-div,
+.ima-mute-div
+{
+visibility: hidden;
+ }
+.ima-mute-div
+{
+left: 20px;
+ }
+
+ .logostyle
+ {
+     position: absolute;
+right: 5px;
+width: 50px;
+height: 24px;
+bottom: 0px;
+z-index: 1;
+ }
+ .ima-slider-div,
+ .ima-fullscreen-div, 
+ .ima-non-fullscreen{
+     width: 0px;
+     max-width: 0px;
+     min-width: 0px;
+ }
+
+.ima-play-pause-div,
+.ima-mute-div{
+    display: none;
+}
+
+.pilot-video.slider {
+  position: fixed;	
+  right:-150px;
+  display: none; 
+  bottom:0px;
+   z-index: 3;
+}
+
+.pilot-video{
+    visibility: hidden;
+}
+.pilot-player{
+    visibility: hidden;
+}
+.pilot-closeBtn{
+cursor: pointer;
+visibility: hidden;
+position: relative;
+left:0%;
+}
+
+.vjs-default-skin .vjs-progress-control,
+.vjs-default-skin .vjs-time-controls,
+.vjs-default-skin .vjs-time-divider,
+.vjs-default-skin .vjs-captions-button,
+.vjs-default-skin .vjs-mute-control,
+.vjs-default-skin .vjs-volume-control,
+.vjs-default-skin .vjs-fullscreen-control {
+    display: none !important;
+}
+
+.video-js .vjs-big-play-button {
+    left: 50% !important;
+    top: 50% !important;
+    width: 10%;
+    height: 10%;
+       border: none !important; 
+       color:red;
+       align-content: center;
+      box-shadow: none !important; 
+	  /* background-color: rgba(7, 20, 30, 0.7); */
+}
+
+.video-js .vjs-play-control:before {
+    top:40% !important;
+    content: '\f101';
+    font-size: 48px;
+}
