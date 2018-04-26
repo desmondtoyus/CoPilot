@@ -17,6 +17,20 @@
  */
 
 let playList = [];
+let playArr = [];
+function inPicture(el) {
+    var rect = el.getBoundingClientRect();
+    var elemTop = rect.top;
+    var elemBottom = rect.bottom;
+
+    // Only completely visible elements return true:
+    // var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
+    // Partially visible elements return true:
+    isVisible = elemTop < window.innerHeight && elemBottom >= 0;
+    return isVisible;
+};
+
+
 
 let addclose = document.getElementsByClassName('pilot-video');
 for (let index = 0; index < addclose.length; index++) {
@@ -98,8 +112,22 @@ function pause(id) {
 }
 
 function play(id) {
-    var player = videojs(id);
-    player.ima.resumeAd();
+    let childDiv = document.getElementById(id);
+    let parent = document.getElementById(id).parentNode;
+    if (playArr.indexOf(id) == -1 && (parent.classList.contains('in_article') || parent.classList.contains('in_article_fixed'))) {
+        playArr.push(id);
+        let divStyle = window.getComputedStyle(childDiv);
+        let playHeight = divStyle.getPropertyValue('height');
+        var player = videojs(id);
+        player.ima.resumeAd();
+        collapse(parent, playHeight)
+
+    } else {
+        var player = videojs(id);
+        player.ima.resumeAd();
+    }
+    
+    
 }
 
 
@@ -179,7 +207,6 @@ Player.prototype.adsManagerLoadedCallback = function () {
 
 Player.prototype.onAdEvent = function (event) {
     let endingPlay = document.getElementById(this.id);
-
     let logoDiv = document.createElement('div');
     logoDiv.classList.add("logostyle");
     let logoImg = document.createElement('img');
@@ -189,12 +216,10 @@ Player.prototype.onAdEvent = function (event) {
 
     document.getElementById(controlDiv).appendChild(logoDiv);
     if (event.type == 'loaded') {
-
+        endingPlay.parentNode.id = 'pilot-' + this.id;
         if (endingPlay.hasAttribute("muted")) {
             videojs(this.id).ima.getAdsManager().setVolume(0);
         }
-
-
     }
     console.log("EVENT", event.type);
     if (event.type == 'start') {
@@ -219,10 +244,18 @@ Player.prototype.onAdEvent = function (event) {
             endingPlay.parentNode.style.visibility = 'visible';
             endingPlay.style.visibility = 'visible';
             pause(this.id);
-            let style = window.getComputedStyle(endingPlay);
-            let playerHeight = style.getPropertyValue('height');
-            collapse(endingPlay.parentNode, playerHeight);
-            playList.push(this.id);
+            let divInView = inPicture(document.getElementById('pilot-' + this.id));
+            if (divInView) {
+                let style = window.getComputedStyle(endingPlay);
+                let playerHeight = style.getPropertyValue('height');
+                collapse(endingPlay.parentNode, playerHeight);
+                playList.push(this.id);
+                playArr.push(this.id); 
+            } 
+            else{
+                checkScroll();
+            }
+                   
         }
 
 
