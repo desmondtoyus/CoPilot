@@ -7,11 +7,7 @@
                 opacity: 1;
             }
         }
-.pilot-closeBtn{
-    display : inline-block;
-    padding: 2px;
-    visibility: hidden;
-}
+
 .in_article{
     height: 0px;
     overflow: hidden;
@@ -91,6 +87,8 @@ z-index: 1;
     visibility: hidden;
 }
 .pilot-closeBtn{
+display : inline-block;
+padding: 2px;
 cursor: pointer;
 visibility: hidden;
 position: relative;

@@ -84,13 +84,25 @@ function fadeIn(ele) {
 };
 
 
-function collapse(ele, playerHeight) {
+function expand(ele, playerHeight) {
     let style = window.getComputedStyle(ele);
     let eleHeight = style.getPropertyValue('height');
     if (parseInt(eleHeight) <= parseInt(playerHeight) + 20) {
         ele.style.height = parseInt(eleHeight) + 10 + 'px';
         setTimeout(() => {
-            collapse(ele, playerHeight);
+            expand(ele, playerHeight);
+        }, 20);
+    }
+
+};
+
+function collapse(ele) {
+    let style = window.getComputedStyle(ele);
+    let eleHeight = style.getPropertyValue('height');
+    if (parseInt(eleHeight) >= 10) {
+        ele.style.height = parseInt(eleHeight) - 10 + 'px';
+        setTimeout(() => {
+            collapse(ele);
         }, 20);
     }
 
@@ -120,7 +132,7 @@ function play(id) {
         let playHeight = divStyle.getPropertyValue('height');
         var player = videojs(id);
         player.ima.resumeAd();
-        collapse(parent, playHeight)
+        expand(parent, playHeight)
 
     } else {
         var player = videojs(id);
@@ -248,7 +260,7 @@ Player.prototype.onAdEvent = function (event) {
             if (divInView) {
                 let style = window.getComputedStyle(endingPlay);
                 let playerHeight = style.getPropertyValue('height');
-                collapse(endingPlay.parentNode, playerHeight);
+                expand(endingPlay.parentNode, playerHeight);
                 playList.push(this.id);
                 playArr.push(this.id); 
             } 
@@ -266,9 +278,12 @@ Player.prototype.onAdEvent = function (event) {
 
     if (event.type == 'complete') {
         if (this.inArticle.indexOf('article') >= 0) {
-            endingPlay.style.display = 'none';
-            endingPlay.getElementsByClassName('vjs-control-bar')[0].style.display = 'none';
-            endingPlay.parentNode.style.display = 'none';
+            // endingPlay.style.display = 'none';
+            // endingPlay.getElementsByClassName('vjs-control-bar')[0].style.display = 'none';
+            // endingPlay.parentNode.style.display = 'none';
+            pause(this.id);
+
+            collapse(endingPlay.parentNode);
         }
         else {
             endingPlay.style.visibility = 'hidden';
@@ -322,7 +337,7 @@ function checkScroll() {
                     playList.splice(indexOfPlayer, 1);
                     console.log('PLAY');
                 }
-                if ((!document.getElementById(playId).classList.contains('pilot-checker')) && (document.getElementById(playId).parentNode.classList.contains('stuck'))) {
+                if ((!document.getElementById(playId).classList.contains('pilot-checker')) && (document.getElementsByClassName('pilot-video')[i].classList.contains('stuck'))) {
                     document.getElementById(playId).parentNode.classList.remove('stuck')
                 }
                 playVideo.style.offsetHeight = realHeight[i] + "px";
