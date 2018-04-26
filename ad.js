@@ -62,6 +62,23 @@ function pilotSlider(id) {
     }
 }
 
+function pilotSlideOut(id) {
+    let stopPosition = -750;
+    if (parseInt(document.getElementById(id).parentNode.style.right) > stopPosition) {
+        document.getElementById(id).parentNode.style.right = parseInt(document.getElementById(id).parentNode.style.right) - 10 + "px";
+        setTimeout(() => {
+            pilotSlideOut(id)
+        }, 0.5);
+
+    }
+    else{
+       let closePlayer =  document.getElementById(id);
+        closePlayer.style.visibility = 'hidden';
+        closePlayer.getElementsByClassName('vjs-control-bar')[0].style.visibility = 'hidden';
+        closePlayer.parentNode.style.visibility = 'hidden'
+    }
+}
+
 // SLIDING VIDEOconta
 
 if (document.getElementsByClassName('slider')) {
@@ -225,8 +242,8 @@ Player.prototype.onAdEvent = function (event) {
     logoImg.src = 'https://player.pilotxcdn.com/CoPilot.png';
     logoDiv.appendChild(logoImg);
     let controlDiv = this.id + '_ima-controls-div';
-
-    document.getElementById(controlDiv).appendChild(logoDiv);
+// TEMPORARILY REMOVING LOGO FROM PLAYER
+    // document.getElementById(controlDiv).appendChild(logoDiv);
     if (event.type == 'loaded') {
         endingPlay.parentNode.id = 'pilot-' + this.id;
         if (endingPlay.hasAttribute("muted")) {
@@ -278,12 +295,12 @@ Player.prototype.onAdEvent = function (event) {
 
     if (event.type == 'complete') {
         if (this.inArticle.indexOf('article') >= 0) {
-            // endingPlay.style.display = 'none';
-            // endingPlay.getElementsByClassName('vjs-control-bar')[0].style.display = 'none';
-            // endingPlay.parentNode.style.display = 'none';
             pause(this.id);
-
             collapse(endingPlay.parentNode);
+        }
+        else if (endingPlay.parentNode.classList.contains('slider')) {
+            pilotSlideOut(this.id);
+            
         }
         else {
             endingPlay.style.visibility = 'hidden';
