@@ -15,14 +15,14 @@
  * 
  *
  */
-
+// document.write('<scr' + 'ipt type="text/javascript" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js" ></scr' + 'ipt>');
+// import google from 'https://imasdk.googleapis.com/js/sdkloader/ima3.js';
 let playList = [];
 let playArr = [];
 function inPicture(el) {
     var rect = el.getBoundingClientRect();
     var elemTop = rect.top;
     var elemBottom = rect.bottom;
-
     // Only completely visible elements return true:
     // var isVisible = (elemTop >= 0) && (elemBottom <= window.innerHeight);
     // Partially visible elements return true:
@@ -371,7 +371,7 @@ function checkScroll() {
                     document.getElementById(playId).parentNode.classList.add("stuck");
                     document.getElementById(playId).parentNode.classList.remove("pilot-checker");
                 }
-                if (document.getElementById(playId).classList.contains('in_article_fixed') || document.getElementById(playId).classList.contains('standard')) {
+                if (document.getElementById(playId).parentNode.classList.contains('in_article_fixed') || document.getElementById(playId).parentNode.classList.contains('standard')) {
                     document.getElementById(playId).classList.remove("pilot-checker");
                     pause(playId);
                 }
