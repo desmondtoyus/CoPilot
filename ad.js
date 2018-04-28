@@ -182,7 +182,7 @@ var Player = function (id, vastTag, inArticle) {
             adTagUrl: vastTag,
             adsManagerLoadedCallback: this.adsManagerLoadedCallback.bind(this),
             preload: 'auto',
-            adLabel: 'Time Remaining'
+            adLabel: 'p'
             // showControlsForJSAds: false
         };
         player.ima(options);
@@ -243,7 +243,7 @@ Player.prototype.onAdEvent = function (event) {
     logoDiv.appendChild(logoImg);
     let controlDiv = this.id + '_ima-controls-div';
 // TEMPORARILY REMOVING LOGO FROM PLAYER
-    // document.getElementById(controlDiv).appendChild(logoDiv);
+    document.getElementById(controlDiv).appendChild(logoDiv);
     if (event.type == 'loaded') {
         endingPlay.parentNode.id = 'pilot-' + this.id;
         if (endingPlay.hasAttribute("muted")) {

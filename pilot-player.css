@@ -44,7 +44,7 @@ display: none !important;
  }
 .ima-mute-div
 {
-left: 20px !important;
+left: 30px !important;
  }
 
  .logostyle
@@ -90,7 +90,14 @@ text-align: left  !important;
 }
 
 .ima-countdown-div{
-text-align: left  !important;
+text-align: center  !important;
+margin-top: 10px;
+margin-left: 60%;
+font-size: 14px;
+}
+
+.ima-countdown-div::first-letter {
+  font-size: 0 !important;
 }
 
 .vjs-default-skin .vjs-progress-control,
